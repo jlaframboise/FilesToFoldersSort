@@ -1,7 +1,4 @@
 import os
-import shutil
-
-dirPath = r"C:\Users\jaker\Desktop\simple"
 
 
 def getDate(fileName):
@@ -133,4 +130,3 @@ elif choice == '3':
 else:
     print('Cancelled. ')
 
-# filesToYearFolders(r"C:\Users\jaker\Desktop\fileOrgTesting - Copy")
