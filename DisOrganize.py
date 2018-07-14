@@ -1,21 +1,7 @@
 import os
 
-'''
-def unsortTree(path):
-    os.chdir(path)
 
-    for x in os.listdir():
-        if os.path.isdir(x):
-            unsortTree(os.path.join(path, x))
-            pass
-    for x in os.listdir():
-        if os.path.isfile(x):
-            filePath = os.path.join(path, x)
-            destPath = os.path.join(os.path.split(path)[0], x)
-            os.rename(filePath, destPath)
-'''
-
-def unsortTree(path):
+def dumpSubFoldersToParent(path):
     os.chdir(path)
     print('Running from {}'.format(path))
 
@@ -23,20 +9,39 @@ def unsortTree(path):
     for x in os.listdir():
 
         if os.path.isdir(x):
-            unsortTree(os.path.join(path,x))
+            dumpSubFoldersToParent(os.path.join(path,x))
             os.chdir(path)
             print('Back in {}'.format(path))
 
-        else: # os.path.isfile(x):
-
+    for x in os.listdir():
+        if os.path.isfile(x):
             filePath = os.path.join(path, x)
             destPath = os.path.join(os.path.split(path)[0], x)
             print('Moving: {} to {}'.format(filePath, destPath))
             os.rename(filePath, destPath)
 
 
+def dumpSubFoldersToSelf(path):
+    os.chdir(path)
+    for x in os.listdir():
+        if os.path.isdir(x):
+            dumpSubFoldersToParent(os.path.join(path, x))
+            os.chdir(path)
 
+#testPath = r"C:\Users\jaker\Desktop\fileOrgTesting - Copy"
 
-testPath = r"C:\Users\jaker\Desktop\fileOrgTesting - Copy"
+print('----Dissolve Folders Tool - JLaframboise----')
+choice = input('Dissolve inside self(1), or up to parent(2)? ')
+choicePath = input("Paste the folder path here: ")
+print()
 
-unsortTree(testPath)
+if choice == '1':
+    print('Dissolving...')
+    dumpSubFoldersToSelf(choicePath)
+    print('Completed')
+elif choice == '2':
+    print('Dissolving...')
+    dumpSubFoldersToParent(choicePath)
+    print('Completed')
+else:
+    print('Cancelled. ')
