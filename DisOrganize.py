@@ -19,8 +19,8 @@ def unsortTree(path):
     os.chdir(path)
     print('Running from {}'.format(path))
 
-    ogListDir = os.listdir()
-    for x in ogListDir:
+    #ogListDir = os.listdir()
+    for x in os.listdir():
 
         if os.path.isdir(x):
             unsortTree(os.path.join(path,x))
